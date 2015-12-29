@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+
+
+    <bean id="helloWorld" class="cn.fengyu.frame.demo.a1.HelloWorld">
+        <property name="user" value="fengyu"/>
+    </bean>
+    <bean id="helloWorld2" class="cn.fengyu.frame.demo.a1.HelloWorld">
+        <constructor-arg value="fengyu2"/>
+    </bean>
+    <bean id="car" class="cn.fengyu.frame.demo.a1.Car">
+        <constructor-arg value="Company1" index="0"/>
+        <constructor-arg value="Brand1" index="1"/>
+        <constructor-arg value="20000" index="2"/>
+    </bean>
+    <bean class="cn.fengyu.frame.demo.a1.Car" id="car2">
+        <constructor-arg value="Company2"></constructor-arg>
+        <constructor-arg>
+            <value><![CDATA[<ATARZA>]]></value>
+        </constructor-arg>
+        <constructor-arg value="180" type="int"></constructor-arg>
+
+    </bean>
+
+    <bean class="cn.fengyu.frame.demo.a2.Dao" id="dao2"/>
+    <bean class="cn.fengyu.frame.demo.a2.Dao" id="dao"/>
+    <bean class="cn.fengyu.frame.demo.a2.Service" id="service">
+        <property name="dao" ref="dao2"/>
+    </bean>
+    <bean class="cn.fengyu.frame.demo.a2.Service" id="service2">
+        <property name="dao">
+            <bean class="cn.fengyu.frame.demo.a2.Dao">
+                <property name="dataSource" value="c3p0"/>
+            </bean>
+        </property>
+    </bean>
+    <bean class="cn.fengyu.frame.demo.a2.Action" name="action">
+        <property name="service" ref="service2"/>
+        <property name="service.dao.dataSource" value="DBCP2"></property>
+    </bean>
+    <bean class="cn.fengyu.frame.demo.a2.Dao" name="dao3">
+        <property name="dataSource"><null/></property>
+    </bean>
+    <bean class="cn.fengyu.frame.demo.a1.User" id="user">
+        <property name="userName" value="Jack"/>
+        <property name="cars">
+            <list>
+                <ref bean="car"/>
+                <ref bean="car2"/>
+            </list>
+        </property>
+
+    </bean>
+    <util:list id="cars">
+        <ref bean="car"></ref>
+        <ref bean="car2"></ref>
+    </util:list>
+    <bean class="cn.fengyu.frame.demo.a1.User" id="user2">
+        <property name="userName" value="Dom"/>
+        <property name="cars" ref="cars"/>
+    </bean>
+
+    <bean class="cn.fengyu.frame.demo.a1.User" id="user3"
+            p:cars-ref="cars" p:userName="Tictanic"
+            />
+    <bean id="user5" parent="user3" p:userName="Bob"/>
+
+
+
+
+
+</beans>
