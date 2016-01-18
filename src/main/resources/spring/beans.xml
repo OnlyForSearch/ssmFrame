@@ -68,7 +68,7 @@
     <bean class="cn.fengyu.frame.demo.a1.User" id="user3"
             p:cars-ref="cars" p:userName="Tictanic"
             />
-    <bean id="user5" parent="user3" p:userName="Bob"/>
+    <bean id="user5" parent="user3"/>
 
 
 
